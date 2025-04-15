@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/nadir-gg/MenuAPI.svg)](https://jitpack.io/#nadir-gg/MenuAPI)
+
 # This is a fork of NoSequel's MenuAPI
 If you need help on creating menus then visit: https://github.com/NoSequel/MenuAPI
 
