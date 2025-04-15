@@ -10,77 +10,77 @@ public enum MenuType {
     HOPPER {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.HOPPER, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.HOPPER, menu.getTitle());
         }
     },
 
     INVENTORY {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, menu.getSize(), menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), menu.getSize(), menu.getTitle());
         }
     },
 
     FURNACE {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.FURNACE, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.FURNACE, menu.getTitle());
         }
     },
 
     BREWING_STAND {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.BREWING, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.BREWING, menu.getTitle());
         }
     },
 
     ENCHANTING {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.ENCHANTING, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.ENCHANTING, menu.getTitle());
         }
     },
 
     BEACON {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.BEACON, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.BEACON, menu.getTitle());
         }
     },
 
     CRAFTING {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.CRAFTING, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.CRAFTING, menu.getTitle());
         }
     },
 
     DISPENSER {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.DISPENSER, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.DISPENSER, menu.getTitle());
         }
     },
 
     DROPPER {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.DROPPER, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.DROPPER, menu.getTitle());
         }
     },
 
     MERCHANT {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.MERCHANT, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.MERCHANT, menu.getTitle());
         }
     },
 
     ANVIL {
         @Override
         public Inventory createInventory(Menu menu) {
-            return Bukkit.createInventory(null, InventoryType.ANVIL, menu.getTitle());
+            return Bukkit.createInventory(menu.getHolder(), InventoryType.ANVIL, menu.getTitle());
         }
     };
 

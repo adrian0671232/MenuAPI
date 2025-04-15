@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryHolder;
@@ -89,41 +90,36 @@ public abstract class PaginatedMenu extends Menu {
 
             final Button[] navBar = this.getNavigationBar();
 
-            // Check if the clicked item is one of the navigation bar buttons
             boolean isNavButton = false;
             for (Button button : navBar) {
                 if (button != null && button.equals(clickedButton)) {
                     isNavButton = true;
+                    getPlayer().playSound(getPlayer().getLocation(), Sound.BAT_TAKEOFF, 1, 1);
                     break;
                 }
             }
 
-            // Open the page selector if player right-clicks a navigation button
             if (event.isRightClick() && isNavButton) {
                 new PageSelectorMenu((Player) event.getWhoClicked(), this, this.getHolder()).updateMenu();
                 event.setCancelled(true);
                 return;
             }
 
-            // Cancel navigating back on first page
             if (clickedButton != null && clickedButton.equals(previousPageButton) && this.page == 1) {
                 event.setCancelled(true);
                 return;
             }
 
-            // Cancel navigating forward if there's only 1 page
             if (clickedButton != null && clickedButton.equals(nextPageButton) && this.maxPages == 1) {
                 event.setCancelled(true);
                 return;
             }
 
-            // Cancel if button is null
             if (clickedButton == null) {
                 event.setCancelled(true);
                 return;
             }
 
-            // Execute click action
             if (clickedButton.getClickAction() != null) {
                 clickedButton.getClickAction().accept(event);
             }
