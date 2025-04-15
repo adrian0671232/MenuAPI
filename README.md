@@ -9,7 +9,7 @@ Changes:
 - [x] Right clicking a nav button allows you to go to a page selector
 - [x] Navigation buttons have sounds now
 
-#Main.java
+## Main.java
 ```java
 public final class Main extends JavaPlugin implements Listener {
 
@@ -37,7 +37,7 @@ public final class Main extends JavaPlugin implements Listener {
 }
 ```
 
-#TestMenu.java
+## TestMenu.java
 ```java
 public class TestMenu extends PaginatedMenu {
     public TestMenu(Player player) {
@@ -55,7 +55,7 @@ public class TestMenu extends PaginatedMenu {
 }
 ```
 
-#TestHolder.java
+## TestHolder.java
 ```java
 public class TestHolder implements InventoryHolder {
     @Override
