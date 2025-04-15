@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public abstract class Menu {
     private final Player player;
     public final String title;
     private final int size;
+    private final InventoryHolder holder;
 
     public Button[] buttons;
 
@@ -43,10 +45,11 @@ public abstract class Menu {
      * @param title  the title to display at the top of the inventory
      * @param size   the size of the inventory
      */
-    public Menu(Player player, String title, int size) {
+    public Menu(Player player, String title, int size, InventoryHolder holder) {
         this.player = player;
         this.size = size;
         this.title = title;
+        this.holder = holder;
 
         this.buttons = new Button[this.size];
 
@@ -88,12 +91,8 @@ public abstract class Menu {
             }
         }
 
-        if(inventory != this.inventory) {
-            this.player.closeInventory();
-            this.player.openInventory(inventory);
-        } else {
-            player.updateInventory();
-        }
+        this.player.closeInventory();
+        this.player.openInventory(inventory);
 
         this.inventory = inventory;
         this.registerMenu();

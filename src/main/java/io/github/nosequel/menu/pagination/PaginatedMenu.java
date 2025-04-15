@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.InventoryHolder;
 
 @Getter
 @Setter
@@ -32,8 +33,8 @@ public abstract class PaginatedMenu extends Menu {
      * @param title  the title to display at the top of the inventory
      * @param size   the size of the inventory
      */
-    public PaginatedMenu(Player player, String title, int size) {
-        this(player, title, size, 16);
+    public PaginatedMenu(Player player, String title, int size, InventoryHolder holder) {
+        this(player, title, size, 16, holder);
     }
 
     /**
@@ -44,8 +45,8 @@ public abstract class PaginatedMenu extends Menu {
      * @param size   the size of the inventory
      * @param maxPages the maximum amount of pages
      */
-    public PaginatedMenu(Player player, String title, int size, int maxPages) {
-        super(player, title, size);
+    public PaginatedMenu(Player player, String title, int size, int maxPages, InventoryHolder holder) {
+        super(player, title, size, holder);
         this.maxPages = maxPages;
         this.buttons = new Button[size * maxPages];
     }
@@ -83,19 +84,53 @@ public abstract class PaginatedMenu extends Menu {
     @Override
     public void click(InventoryClickEvent event) {
         try {
-            final Button[] buttons = this.getButtonsInRange();
-            final Button button = buttons[event.getSlot()];
+            final Button[] visibleButtons = this.getButtonsInRange();
+            final Button clickedButton = visibleButtons[event.getSlot()];
 
-            if (button == null) {
+            final Button[] navBar = this.getNavigationBar();
+
+            // Check if the clicked item is one of the navigation bar buttons
+            boolean isNavButton = false;
+            for (Button button : navBar) {
+                if (button != null && button.equals(clickedButton)) {
+                    isNavButton = true;
+                    break;
+                }
+            }
+
+            // Open the page selector if player right-clicks a navigation button
+            if (event.isRightClick() && isNavButton) {
+                new PageSelectorMenu((Player) event.getWhoClicked(), this, this.getHolder()).updateMenu();
                 event.setCancelled(true);
                 return;
             }
 
-            if (button.getClickAction() != null) {
-                button.getClickAction().accept(event);
+            // Cancel navigating back on first page
+            if (clickedButton != null && clickedButton.equals(previousPageButton) && this.page == 1) {
+                event.setCancelled(true);
+                return;
             }
-        } catch (IndexOutOfBoundsException ignored) {
 
+            // Cancel navigating forward if there's only 1 page
+            if (clickedButton != null && clickedButton.equals(nextPageButton) && this.maxPages == 1) {
+                event.setCancelled(true);
+                return;
+            }
+
+            // Cancel if button is null
+            if (clickedButton == null) {
+                event.setCancelled(true);
+                return;
+            }
+
+            // Execute click action
+            if (clickedButton.getClickAction() != null) {
+                clickedButton.getClickAction().accept(event);
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            event.setCancelled(true);
+            e.printStackTrace();
         }
     }
 
