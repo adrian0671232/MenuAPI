@@ -119,7 +119,7 @@ public class Button implements Cloneable {
      * @param durability the itemstack durability to set it to
      * @return the current button instance
      */
-    public Button setDurability(short dura) {
+    public Button setDurability(short durability) {
         this.durability = durability;
         return this;
     }
@@ -130,7 +130,7 @@ public class Button implements Cloneable {
      * @return the newly created item stack
      */
     public ItemStack toItemStack() {
-        final ItemStack item = new ItemStack(this.getMaterial(), this.getAmount(), this.getData());
+        final ItemStack item = new ItemStack(this.getMaterial(), this.getAmount(), (short) this.getDurability());
         final ItemMeta meta;
 
         if (this.meta == null) {
