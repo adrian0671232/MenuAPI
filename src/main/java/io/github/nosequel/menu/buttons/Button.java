@@ -24,6 +24,7 @@ public class Button implements Cloneable {
 
     private int amount;
     private byte data;
+    private short durability;
 
     /**
      * @param material the icon of the button
@@ -42,6 +43,7 @@ public class Button implements Cloneable {
         this.meta = itemStack.getItemMeta();
 
         this.data = itemStack.getData().getData();
+        this.short = (short) itemstack.getDurability();
         this.amount = itemStack.getAmount();
     }
 
@@ -52,6 +54,7 @@ public class Button implements Cloneable {
                 .setAmount(this.getAmount())
                 .setClickAction(this.getClickAction())
                 .setLore(this.getLore())
+                .setDurability(this.getDurability())
                 .setData(this.getData());
     }
 
@@ -107,6 +110,17 @@ public class Button implements Cloneable {
      */
     public Button setData(byte data) {
         this.data = data;
+        return this;
+    }
+
+    /**
+     * Set the item stack durability of the button in the menu.
+     *
+     * @param durability the itemstack durability to set it to
+     * @return the current button instance
+     */
+    public Button setDurability(short dura) {
+        this.durability = durability;
         return this;
     }
 
