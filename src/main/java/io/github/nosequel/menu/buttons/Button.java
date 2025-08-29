@@ -43,7 +43,7 @@ public class Button implements Cloneable {
         this.meta = itemStack.getItemMeta();
 
         this.data = itemStack.getData().getData();
-        this.short = (short) itemstack.getDurability();
+        this.durability = (short) itemstack.getDurability();
         this.amount = itemStack.getAmount();
     }
 
